@@ -1,2 +1,2 @@
 # todo-list
-Todo List in Express, MongoDb
+Todo List App in Express, MongoDb
