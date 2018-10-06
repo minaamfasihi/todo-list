@@ -6,6 +6,7 @@ const port = 3000;
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/todoapp';
+const ObjectID = require('mongodb').ObjectID;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -48,5 +49,16 @@ app.post('/todo/add', (req, res, next) => {
 		}
 		console.log('Todo added...');
 		res.redirect('/');
+	});
+});
+
+app.delete('/todo/delete/:id', (req, res, next) => {
+	const query = { _id: ObjectID(req.params.id) };
+	Todos.deleteOne(query, (err, response) => {
+		if (err) {
+			return console.log(err);
+		}
+		console.log('Todo removed');
+		res.send(200);
 	});
 });
